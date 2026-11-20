@@ -1,0 +1,91 @@
+% ============================================================
+% secciones/contenido.tex
+% EXP-1 - Netflix: comunicación entre microservicios con RPC y gRPC,
+% comparada con Java RMI
+% Estructura de la exposición (12 min) según el enunciado.
+% Cada sección: qué hay que cubrir, tiempo y quién la expone.
+% El texto de cada sección lo escribe el integrante responsable.
+% ============================================================
+
+% ------------------------------------------------------------
+\section{Presentación del sistema}
+% Tiempo: 1 min | Expone: [NOMBRE]
+% Cubrir:
+%  - Qué problema resuelve Netflix (streaming de video a escala global).
+%  - Quién lo usa y a qué escala: número de suscriptores y países
+%    (citar el informe a inversionistas más reciente de Netflix).
+%  - Por qué nos interesa: su comunicación interna entre microservicios
+%    usa RPC, en particular gRPC.
+
+% ------------------------------------------------------------
+\section{Arquitectura}
+% Tiempo: 2 min | Expone: [NOMBRE]
+% Cubrir:
+%  - Componentes: clientes (apps), gateway de entrada, microservicios
+%    internos, almacenamiento.
+%  - Cómo se comunican: llamadas RPC entre microservicios con gRPC
+%    (HTTP/2 + Protocol Buffers).
+%  - Evolución: antes usaban su propio stack sobre HTTP/1.1; luego
+%    migraron a gRPC (fuente: caso de estudio de la CNCF sobre Netflix).
+%  - Diagrama propio en draw.io (diagramas/) + esquema a mano (anexo).
+
+% ------------------------------------------------------------
+\section{Transparencias de distribución}
+% Tiempo: 1,5 min | Expone: [NOMBRE]
+% Cubrir (con un ejemplo concreto de cada una):
+%  - Acceso: el stub de gRPC hace que llamar a un servicio remoto se vea
+%    como llamar a una función local.
+%  - Ubicación: el cliente no sabe en qué máquina está el servicio.
+%  - Replicación y fallos: varias instancias de cada servicio.
+%  - Cuáles NO ofrece y por qué (ej.: la latencia de red no se puede
+%    ocultar del todo; un fallo de red sí puede verse como error/timeout).
+
+% ------------------------------------------------------------
+\section{CAP y PACELC}
+% Tiempo: 2 min | Expone: [NOMBRE]
+% Cubrir:
+%  - Qué prioriza Netflix ante una partición: disponibilidad (AP).
+%  - Qué prioriza sin partición: latencia (EL).
+%  - Evidencia: documentación técnica o artículos (Netflix Tech Blog).
+%  - Aclarar: gRPC es el mecanismo de comunicación; el CAP es del
+%    sistema (Netflix), no del protocolo.
+
+% ------------------------------------------------------------
+\section{Modelos de comunicación}
+% Tiempo: 1,5 min | Expone: [NOMBRE]
+% Cubrir:
+%  - Cliente-servidor entre microservicios.
+%  - Sincrónica (llamada unaria) y streaming de gRPC.
+%  - Mecanismo: RPC (gRPC) frente a sockets y mensajería.
+%  - Por qué Netflix eligió gRPC: necesitaba clientes que funcionaran
+%    entre lenguajes, sobre todo Java y Node.js (caso CNCF).
+%  - Aquí entra Java RMI: solo funciona entre programas Java.
+
+% ------------------------------------------------------------
+\section{Tolerancia a fallos}
+% Tiempo: 2 min | Expone: [NOMBRE]
+% Cubrir:
+%  - Qué fallos soporta: caída de instancias, de zonas.
+%  - Cómo los detecta: timeouts/deadlines de gRPC, health checks.
+%  - Cómo se recupera: reintentos, balanceo hacia otras instancias,
+%    Chaos Monkey para probarlo.
+%  - Incidente real documentado de Netflix + análisis de causa raíz
+%    (método de FORM-AC-01: causa inmediata, causa raíz, mitigación).
+
+% ------------------------------------------------------------
+\section{Comparación y postura crítica}
+% Tiempo: 1 min | Expone: [NOMBRE]
+% Cubrir:
+%  - Tabla: gRPC (Netflix) vs Java RMI, con al menos 5 criterios
+%    (lenguajes, transporte, serialización, rendimiento, streaming,
+%    tolerancia a fallos).
+%  - Fortalezas, limitaciones y trade-offs de gRPC.
+%  - Cuándo RMI todavía tendría sentido.
+
+% ------------------------------------------------------------
+\section{Lecciones para el PFC y conclusiones}
+% Tiempo: 1 min | Expone: [NOMBRE]
+% Cubrir:
+%  - Qué decisión de Netflix aplicaríamos en nuestro PFC
+%    (ej.: definir contratos entre servicios, timeouts y reintentos).
+%  - 3 o 4 conclusiones concretas, no teoría repetida.
