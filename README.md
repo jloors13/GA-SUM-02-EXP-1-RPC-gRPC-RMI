@@ -1,4 +1,4 @@
-# GA-SUM-02 — Análisis de RPC, gRPC y RMI
+# GA-SUM-02 — EXP-1 — Exposición del primer corte: RPC, gRPC y RMI
 
 **Universidad:** Universidad Técnica Estatal de Quevedo (UTEQ)  
 **Asignatura:** Aplicaciones Distribuidas  
