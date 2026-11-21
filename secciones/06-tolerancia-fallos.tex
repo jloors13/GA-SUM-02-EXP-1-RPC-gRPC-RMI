@@ -1,0 +1,27 @@
+\section{Tolerancia a fallos}
+
+\subsection{Fallos que contempla Netflix}
+En una arquitectura de microservicios como la de Netflix, una instancia puede dejar de responder y un servicio puede saturarse cuando recibe más peticiones de las que puede atender. También pueden aparecer cuellos de botella en la red de distribución de contenido (CDN), especialmente durante eventos en vivo con muchos espectadores simultáneos \cite{fallos-netflix,fallos-thousandeyes}.
+
+\subsection{Detección}
+En gRPC, el cliente puede fijar un plazo máximo de espera, llamado \emph{deadline}. Si el plazo vence antes de recibir la respuesta, el cliente obtiene el estado \texttt{DEADLINE\_EXCEEDED}. Por su parte, Netflix usa la utilización de CPU como señal de sobrecarga. En un experimento con el escalado automático desactivado, configuró el descarte de tráfico no crítico por encima del 60\,\% de uso de CPU y el de tráfico crítico por encima del 80\,\% \cite{fallos-grpc,fallos-netflix}.
+
+\subsection{Recuperación}
+Netflix aplica el descarte de peticiones por prioridad (\emph{load shedding}). Sus cuatro niveles, de mayor a menor prioridad, son \texttt{CRITICAL}, \texttt{DEGRADED}, \texttt{BEST\_EFFORT} y \texttt{BULK}. Cuando aumenta la carga, el servicio empieza a descartar peticiones de menor prioridad para reservar capacidad para las funciones esenciales \cite{fallos-netflix}.
+
+Tras resolverse una caída de infraestructura, la tasa de peticiones de precarga desde Android se multiplicó por 12. La disponibilidad de esas peticiones cayó al 20\,\%, mientras que la de las iniciadas por los usuarios se mantuvo por encima del 99,4\,\%. Netflix también probó el mecanismo al introducir dos segundos de demora en peticiones de precarga cuyo percentil 99 de latencia habitual era inferior a 200 milisegundos \cite{fallos-netflix}.
+
+\subsection{Incidente real}
+\textbf{Contexto e impacto.} El 15 de noviembre de 2024, más de 60 millones de hogares vieron la pelea entre Jake Paul y Mike Tyson en directo a través de Netflix. Miles de espectadores reportaron pausas en la reproducción por problemas de carga del video \cite{fallos-temple}.
+
+\textbf{Causa inmediata probable.} Según el análisis externo de ThousandEyes, la congestión de los servidores Open Connect Appliances (OCA), que forman parte de la CDN de Netflix, fue la explicación más probable de los problemas durante el pico de demanda. Sus mediciones no detectaron fallos sistémicos de conectividad \cite{fallos-thousandeyes}.
+
+\textbf{Causa raíz hipotética y factores contribuyentes.} Como hipótesis para el análisis, una dificultad del directo es que los segmentos de video se generan durante el evento. Eso limita su distribución por adelantado, a diferencia de una serie grabada, y concentra las peticiones de cada segmento en pocos segundos. Esta es una hipótesis sobre el incidente basada en las características de la transmisión en vivo \cite{fallos-temple,fallos-thousandeyes}.
+
+\textbf{Mitigación observada.} En muchas pruebas, al reconectar se pudo reanudar la reproducción con una tasa de bits menor \cite{fallos-thousandeyes}. Cada recuperación de este tipo mantuvo el video disponible a costa de reducir su calidad.
+
+\subsection{Lección}
+Los plazos de gRPC limitan cuánto puede esperar un cliente ante una llamada lenta. La tolerancia a fallos también depende de cómo el sistema usa la capacidad disponible. En el caso de PlayAPI, descartar precargas ayudó a mantener disponibles las peticiones iniciadas por los usuarios. Durante la pelea, reducir la tasa de bits permitió reanudar la reproducción en parte de las pruebas \cite{fallos-grpc,fallos-netflix,fallos-thousandeyes}.
+
+% Para la declaración general de las notas: se utilizó ChatGPT para explicar conceptos y preparar un borrador de referencia de esta sección. El equipo debe consignar la revisión que efectivamente realice.
+
