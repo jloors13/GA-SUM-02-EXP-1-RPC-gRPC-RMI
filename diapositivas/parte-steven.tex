@@ -1,0 +1,40 @@
+% Diapositivas de Steven Pozo - avance Día 1
+
+\begin{frame}{Arquitectura: vista respaldada por evidencia}
+  \begin{columns}[T]
+    \begin{column}{0.62\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/arquitectura.png}
+    \end{column}
+    \begin{column}{0.36\textwidth}
+      \begin{itemize}
+        \item Caso: Media Understanding Platform
+        \item gRPC: backend a backend
+        \item Search Gateway coordina consultas
+        \item Vista lógica, no topología física completa
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vfill
+  {\tiny Fuente: Netflix Technology Blog (2023), ``Building a Media
+  Understanding Platform for ML Innovations''.}
+\end{frame}
+
+\begin{frame}{Modelo cliente-servidor y RPC unaria}
+  \begin{block}{Una invocación remota}
+    Cliente / stub $\rightarrow$ una petición protobuf $\rightarrow$ servicio
+    gRPC $\rightarrow$ una respuesta o estado.
+  \end{block}
+  \begin{itemize}
+    \item Contrato de servicio definido con Protocol Buffers.
+    \item Transporte habitual de gRPC: HTTP/2.
+    \item Generación de clientes para varios lenguajes.
+    \item La red sigue siendo visible: latencia, deadline y errores.
+  \end{itemize}
+  \begin{alertblock}{Límite de la afirmación}
+    gRPC no garantiza por sí solo replicación, disponibilidad, consistencia ni
+    recuperación ante fallos.
+  \end{alertblock}
+  \vfill
+  {\tiny Fuentes: documentación oficial de gRPC; caso de estudio CNCF/Netflix.}
+\end{frame}
