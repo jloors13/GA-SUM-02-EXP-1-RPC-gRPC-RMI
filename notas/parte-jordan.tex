@@ -1,0 +1,20 @@
+
+\section{Investigación sobre la comunicación entre microservicios}
+
+Para comprender por qué gRPC puede ser una alternativa útil en los sistemas distribuidos, se revisó el estudio de Niswar et al. (2024), en el que se compara el rendimiento de tres formas de comunicación: REST, GraphQL y gRPC.
+
+Los investigadores realizaron sus pruebas en SISTER, un sistema de información educativa de Indonesia. Para el experimento desarrollaron tres microservicios utilizando Go, distribuidos en tres contenedores. El sistema incluía servicios de autenticación y consultas de información de docentes, además de utilizar Redis y MySQL para gestionar los datos.
+
+El objetivo fue comparar el tiempo de respuesta y el uso del procesador de cada alternativa. Para ello, realizaron pruebas con diferentes cantidades de solicitudes y dos tipos de consultas: datos planos y datos anidados.
+
+Uno de los resultados más importantes fue que gRPC obtuvo menores tiempos de respuesta en varias de las pruebas. Por ejemplo, al consultar datos planos con 100 solicitudes, registró un promedio de 233,84 milisegundos, mientras que REST alcanzó 1113,33 milisegundos y GraphQL 3852,07 milisegundos.
+
+Sin embargo, los resultados también muestran que gRPC no fue superior en todos los aspectos. REST presentó un menor uso del procesador en las mediciones generales. Por esta razón, la elección de un protocolo debe considerar las necesidades y características del sistema.
+
+Los autores relacionan el rendimiento de gRPC con el uso de HTTP/2, que permite enviar varias solicitudes por una misma conexión mediante la multiplexación. Esto facilita la comunicación cuando diferentes servicios necesitan intercambiar información al mismo tiempo.
+
+Este estudio permite comprender algunas de las ventajas de gRPC en una arquitectura de microservicios. Aunque sus resultados corresponden al sistema SISTER y no a Netflix, sirven como referencia para analizar las características de este mecanismo de comunicación.
+
+\subsection{Referencia consultada}
+
+Niswar, M., Safruddin, R. A., Bustamin, A., y Aswad, I. (2024). Performance evaluation of microservices communication with REST, GraphQL, and gRPC. \textit{International Journal of Electronics and Telecommunications}, 70(2), 429--436. https://doi.org/10.24425/ijet.2024.149562
