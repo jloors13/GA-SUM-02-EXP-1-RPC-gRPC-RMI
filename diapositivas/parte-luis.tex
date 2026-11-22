@@ -1,0 +1,35 @@
+\section{CAP, PACELC y comparación}
+
+\begin{frame}{CAP/PACELC: no etiquetamos a Netflix completo}
+\begin{block}{Caso delimitado: EVCache para datos no críticos}
+\textbf{Partición:} operación local disponible; replicación remota asíncrona.
+\quad $\Rightarrow$ aproximación AP para este caso.
+
+\textbf{Sin partición:} lectura local de baja latencia; posible diferencia
+temporal entre regiones. \quad $\Rightarrow$ aproximación EL.
+\end{block}
+\begin{alertblock}{Límite}
+gRPC no decide CAP. Otros almacenes de Netflix usan cuórum y garantías de
+lectura después de escritura.
+\end{alertblock}
+{\footnotesize Fuentes: Netflix Technology Blog \cite{netflix-evcache,netflix-media-db}.}
+\end{frame}
+
+\begin{frame}{Netflix frente a infraestructura de video de YouTube}
+\small
+\begin{tabularx}{\linewidth}{@{}p{2.1cm}XX@{}}
+\toprule
+ & \textbf{Netflix} & \textbf{YouTube/Google} \\
+\midrule
+Arquitectura & Microservicios, cachés y almacenes distribuidos & Software
+distribuido y aceleradores VCU \\
+Comunicación & gRPC documentado entre backends & La fuente no identifica un RPC
+concreto \\
+Trade-off & Latencia frente a consistencia en EVCache & Eficiencia frente a
+especialización de hardware \\
+\bottomrule
+\end{tabularx}
+\medskip
+Google reportó entre \textbf{20 y 33 veces} mayor eficiencia frente a su
+plataforma previa \cite{google-vcu}.
+\end{frame}

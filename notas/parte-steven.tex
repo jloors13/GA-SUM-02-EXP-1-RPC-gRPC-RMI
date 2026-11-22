@@ -1,0 +1,64 @@
+% Guion oral - Steven Pozo - 3 minutos
+% Avance Día 1 - 20 de noviembre de 2026
+
+\section*{Guion: arquitectura y modelo de comunicación}
+
+\textbf{0:00--0:20. Alcance.}
+Este diagrama no pretende mostrar toda la infraestructura de Netflix. Es una
+vista lógica de un caso que Netflix sí documentó: su plataforma de comprensión
+de medios. Así evitamos inventar nombres de servicios o conexiones internas.
+
+\textbf{0:20--1:05. Componentes.}
+A la izquierda separo dos consumidores. La aplicación o interfaz consumidora
+entra por la ruta GraphQL documentada. El servicio backend consumidor es el
+cliente gRPC: posee el stub y realiza la RPC unaria. Esta separación evita
+afirmar, sin evidencia, que la aplicación final llama directamente a gRPC.
+En el límite de la plataforma existen dos interfaces documentadas: GraphQL para
+integraciones de interfaz y gRPC, usado principalmente de backend a backend.
+La ruta que nos interesa llega al Search Gateway. Este módulo coordina el
+procesamiento de la consulta y de la respuesta y se conecta con capacidades de
+búsqueda e índices de datos de medios. Las cajas representan responsabilidades
+lógicas, no máquinas específicas ni cantidades de réplicas.
+
+\textbf{1:05--1:45. Cliente-servidor y RPC unaria.}
+La aplicación es el cliente y el servicio gRPC es el servidor. Ambos comparten
+un contrato definido con Protocol Buffers. El cliente llama un método en un
+stub; gRPC serializa y transporta el mensaje por HTTP/2. En una RPC unaria el
+cliente envía exactamente una petición y recibe una respuesta con datos o un
+estado de error. Se parece a una función local, pero sigue siendo una llamada de
+red y por eso puede tener latencia, vencimiento o fallo.
+
+La secuencia se puede recordar con cuatro verbos: \textbf{invocar, serializar,
+ejecutar y responder}. Primero se invoca el stub; luego se serializa la petición;
+el servidor ejecuta la operación; finalmente devuelve la respuesta y el estado.
+Si no llega a tiempo, el cliente no debe asumir que fue una llamada local exitosa.
+
+\textbf{1:45--2:25. Por qué gRPC.}
+La evidencia de Netflix indica dos necesidades: comunicación entre servicios
+escritos en diferentes lenguajes y evitar bibliotecas cliente mantenidas a
+mano. gRPC genera código desde el contrato y da una interfaz uniforme. En el
+caso de la plataforma de medios, Netflix afirma explícitamente que gRPC se usa
+principalmente entre backends; esa es la evidencia que sostiene la flecha del
+diagrama.
+
+\textbf{2:25--3:00. Límite y cierre.}
+gRPC resuelve la invocación remota, pero no garantiza por sí solo que Netflix
+sea disponible, consistente o tolerante a fallos. El diagrama no atribuye
+replicación, balanceo, reintentos ni descubrimiento sin fuente. La idea clave es
+separar el contrato de comunicación de la topología física y de los mecanismos
+operativos.
+
+\subsection*{Preguntas probables}
+
+\begin{itemize}
+  \item \textbf{¿Netflix usa gRPC en todo?} No. La fuente dice que predomina en
+  backend a backend; la misma plataforma también expone GraphQL.
+  \item \textbf{¿Una RPC es local?} No. El stub oculta parte de la mecánica,
+  pero la llamada cruza la red y puede fallar.
+  \item \textbf{¿Dónde entra RMI?} Como alternativa Java--Java para comparar;
+  no hay evidencia presentada aquí de que Netflix use Java RMI.
+  \item \textbf{¿Protocol Buffers y gRPC son lo mismo?} No. Protocol Buffers
+  define y serializa mensajes; gRPC organiza la llamada remota y sus estados.
+  \item \textbf{¿Por qué el diagrama no muestra regiones o réplicas?} Porque las
+  fuentes utilizadas para este caso no demuestran esa topología física concreta.
+\end{itemize}

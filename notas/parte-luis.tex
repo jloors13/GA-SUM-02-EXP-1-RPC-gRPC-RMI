@@ -1,0 +1,24 @@
+\subsection*{Luis Quintero: CAP/PACELC y comparación (3 minutos)}
+
+\textbf{0:00--0:55.} No voy a etiquetar a Netflix entero como AP o EL. Analizo
+una operación concreta: lecturas locales y replicación entre regiones de
+EVCache para datos no críticos. Netflix permite que la réplica remota se atrase
+sin detener las operaciones locales. Ante una partición mantiene disponibilidad
+y tolera temporalmente valores distintos entre regiones.
+
+\textbf{0:55--1:35.} Sin partición, la misma decisión favorece latencia: se lee
+localmente y se replica de forma asíncrona. Para ese caso limitado hablamos de
+AP/EL. No depende de gRPC. Otros datos de Netflix usan cuórum y consistencia de
+lectura después de escritura, así que una sola etiqueta no sirve para toda la
+plataforma.
+
+\textbf{1:35--2:30.} Como sistema cercano comparo la infraestructura de video
+de YouTube/Google. Netflix publica una arquitectura de microservicios, cachés y
+contratos gRPC. Google documentó software distribuido coordinado con
+aceleradores VCU para transcodificar video y reportó entre 20 y 33 veces más
+eficiencia. No afirmamos que YouTube use aquí gRPC porque la fuente no lo dice.
+
+\textbf{2:30--3:00.} RPC es el modelo general; gRPC es un framework con
+contratos protobuf y soporte multilenguaje; RMI es una alternativa centrada en
+Java. La conclusión es que la tecnología de comunicación y la política de
+consistencia son decisiones distintas.

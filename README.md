@@ -57,12 +57,19 @@ Los documentos se compilarán utilizando PDFLaTeX y Biber. El orden general de c
 3. `pdflatex`
 4. `pdflatex`
 
-Las instrucciones específicas, los archivos principales y las dependencias se documentarán cuando estén preparados los documentos LaTeX.
+Archivos maestros:
+
+- `presentacion.tex` genera `diapositivas/presentacion.pdf`.
+- `notas-exposicion.tex` genera `notas/notas-exposicion.pdf`.
+- `entrega/entrega-sga.tex` genera `entrega/entrega-sga.pdf`.
+
+Los PDF incluidos fueron regenerados y revisados el 21 de noviembre de 2026.
 
 ## Video del ensayo
 
-**Enlace:** Pendiente de grabación y publicación.
+**Enlace:** Pendiente de incorporar después del ensayo real de los cuatro integrantes.
 
 ## Estado del proyecto
 
-En desarrollo. Se está organizando la documentación, las referencias bibliográficas y los materiales necesarios para la exposición.
+Presentación, notas, diagrama, referencias y documento SGA integrados. Pendiente:
+incorporar el enlace del ensayo real y actualizar la bitácora con la reunión del equipo.
