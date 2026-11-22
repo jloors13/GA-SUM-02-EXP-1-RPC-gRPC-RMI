@@ -1,0 +1,4 @@
+\section{Modelos de comunicación}
+\subsection{Una consulta con tiempo limitado}
+En la capa de datos clave-valor de Netflix, un cliente pide registros con la operación \texttt{GetItems}. El servidor puede responder con los registros disponibles y un token para continuar la consulta en otra página. La siguiente petición depende de ese token. Si reunir una página completa amenaza el objetivo de latencia, el servidor devuelve antes los datos que ya tiene. Un cliente que atiende a su vez una llamada gRPC con un plazo puede dejar de pedir páginas cuando agota el tiempo disponible \cite{leonel-kv,fallos-grpc}.
+

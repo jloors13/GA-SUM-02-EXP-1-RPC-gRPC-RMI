@@ -1,0 +1,42 @@
+\section{Comparación crítica con otra plataforma de video}
+
+Para evitar comparar solo tecnologías, contrastamos el caso de Netflix con la
+infraestructura de procesamiento de video que Google desplegó para cargas como
+YouTube. Ambos sistemas trabajan con video a gran escala, pero la evidencia
+pública describe énfasis diferentes.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}p{2.5cm}XX@{}}
+\toprule
+\textbf{Criterio} & \textbf{Netflix} & \textbf{YouTube/Google} \\
+\midrule
+Problema observado & Servicios y datos para producir, descubrir y entregar
+contenido. & Procesamiento y transcodificación de video a escala de centro de
+datos. \\
+Arquitectura pública & Microservicios, cachés y almacenes distribuidos; gRPC
+predomina en comunicación backend. & Software distribuido coordinado con
+aceleradores VCU especializados. \\
+Comunicación & Contratos gRPC/Protocol Buffers en los casos documentados; otras
+interfaces también existen. & La publicación consultada no permite afirmar un
+protocolo RPC concreto. \\
+Disponibilidad & EVCache mantiene operaciones locales aunque la réplica remota
+se atrase. & Escalado horizontal y adaptación de la infraestructura ante fallos
+de procesamiento. \\
+Trade-off & Baja latencia y disponibilidad para ciertos datos a cambio de
+consistencia eventual. & Mayor eficiencia de transcodificación a cambio de
+hardware y co-diseño especializados. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Google reportó mejoras de eficiencia de 20 a 33 veces frente a su plataforma
+anterior al desplegar aceleradores de video a escala. No concluimos que esa
+arquitectura sea universalmente superior: resuelve una parte distinta del
+problema y exige especialización de hardware \cite{google-vcu}.
+
+\paragraph{RPC, gRPC y RMI.} RPC es el modelo general de invocación remota;
+gRPC es un framework multilenguaje basado normalmente en contratos protobuf;
+Java RMI permite invocar objetos remotos entre programas Java. RMI podría ser
+razonable en un sistema homogéneo Java y controlado, pero no debe atribuirse a
+Netflix ni a YouTube sin evidencia.

@@ -1,0 +1,32 @@
+\documentclass[9pt,twocolumn]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage[a4paper,margin=1.25cm]{geometry}
+\usepackage{microtype,graphicx,booktabs,tabularx}
+\newcommand{\parencite}[1]{\textsuperscript{[#1]}}
+\renewcommand{\cite}[1]{\textsuperscript{[#1]}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\title{Notas de exposición: Netflix, RPC, gRPC y RMI}
+\author{GA-SUM-02}
+\date{21 de noviembre de 2026}
+\begin{document}
+\maketitle
+\input{notas/parte-jordan}
+\input{notas/parte-steven}
+\input{notas/parte-luis}
+\input{notas/parte-leonel}
+\section*{Declaración de uso de IA}
+Se utilizó ChatGPT/Codex para organizar borradores, revisar claridad, proponer
+una estructura de exposición y apoyar la compilación. El equipo revisó las
+afirmaciones contra las fuentes citadas y conserva responsabilidad sobre el
+contenido presentado.
+\section*{Referencias principales}
+Netflix Technology Blog (Media Understanding Platform, Service Mesh, EVCache,
+capa clave--valor y load shedding); documentación oficial de gRPC; Niswar et
+al. (2024), DOI 10.24425/ijet.2024.149562; Henríquez et al. (2025), DOI
+10.15665/rp.v23i1.3683; y Ranganathan et al. (2021), DOI
+10.1145/3445814.3446723. Los metadatos completos están en
+\texttt{referencias/}.
+\end{document}

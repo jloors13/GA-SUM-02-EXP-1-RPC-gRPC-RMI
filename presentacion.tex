@@ -1,0 +1,45 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{dolphin}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx,booktabs,tabularx}
+\newcommand{\parencite}[1]{\textsuperscript{[#1]}}
+\renewcommand{\cite}[1]{\textsuperscript{[#1]}}
+\title{Netflix: RPC, gRPC y RMI en un sistema distribuido real}
+\subtitle{GA-SUM-02 / EXP-1}
+\author{Jordan Loor \and Steven Pozo \and Luis Quintero \and Leonel Zambrano}
+\institute{UTEQ -- Aplicaciones Distribuidas}
+\date{21 de noviembre de 2026}
+\setbeamertemplate{navigation symbols}{}
+\begin{document}
+\begin{frame}\titlepage\end{frame}
+\input{diapositivas/parte-jordan}
+\input{diapositivas/parte-steven}
+\input{diapositivas/parte-luis}
+\input{diapositivas/parte-leonel}
+\LeonelComunicacion
+\LeonelFallos
+\LeonelCierre
+\begin{frame}{Conclusiones}
+\begin{itemize}
+\item gRPC ofrece contratos tipados, pero no elimina latencia ni fallos de red.
+\item CAP/PACELC debe analizarse por dato y operación, no por empresa o protocolo.
+\item La resiliencia requiere priorización, plazos y decisiones ante sobrecarga.
+\item RMI conserva utilidad en entornos Java homogéneos; no se atribuye a Netflix.
+\end{itemize}
+\end{frame}
+\begin{frame}{Referencias principales}
+\tiny
+\begin{itemize}
+\item Netflix Technology Blog (2023), Service Mesh con descubrimiento bajo demanda.
+\item Netflix Technology Blog (2024), capa de datos clave--valor y load shedding.
+\item Netflix Technology Blog, Media Understanding Platform y EVCache global.
+\item gRPC, documentación oficial de deadlines y llamadas unarias.
+\item Niswar et al. (2024), DOI: 10.24425/ijet.2024.149562.
+\item Henríquez et al. (2025), DOI: 10.15665/rp.v23i1.3683.
+\item Ranganathan et al. (2021), DOI: 10.1145/3445814.3446723.
+\end{itemize}
+\end{frame}
+\end{document}

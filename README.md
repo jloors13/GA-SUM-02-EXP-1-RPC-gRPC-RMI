@@ -1,10 +1,15 @@
 # GA-SUM-02 — EXP-1 — Exposición del primer corte: RPC, gRPC y RMI
 
-**Universidad:** Universidad Técnica Estatal de Quevedo (UTEQ)  
-**Asignatura:** Aplicaciones Distribuidas  
-**Actividad:** GA-SUM-02 / EXP-1 — Exposición del primer corte  
-**Tema:** RPC, gRPC y RMI  
-**Modalidad:** Grupal  
+**Universidad:** Universidad Técnica Estatal de Quevedo (UTEQ)
+
+**Asignatura:** Aplicaciones Distribuidas
+
+**Actividad:** GA-SUM-02 / EXP-1 — Exposición del primer corte
+
+**Tema:** RPC, gRPC y RMI
+
+**Modalidad:** Grupal
+
 **Periodo académico:** SPA 2026-2027
 
 ## Descripción
@@ -45,14 +50,20 @@ Aquí se almacenarán los documentos de investigación, las diapositivas de expo
 
 ## Compilación
 
-Los documentos se compilarán utilizando PDFLaTeX y Biber. El orden de compilación será:
+Los documentos se compilarán utilizando PDFLaTeX y Biber. El orden general de compilación será:
 
 1. `pdflatex`
 2. `biber`
 3. `pdflatex`
 4. `pdflatex`
 
-Las instrucciones específicas, los archivos principales y las dependencias se documentarán cuando estén preparados los documentos LaTeX.
+Archivos maestros:
+
+- `presentacion.tex` genera `diapositivas/presentacion.pdf`.
+- `notas-exposicion.tex` genera `notas/notas-exposicion.pdf`.
+- `entrega/entrega-sga.tex` genera `entrega/entrega-sga.pdf`.
+
+Los PDF incluidos fueron regenerados y revisados el 21 de noviembre de 2026.
 
 ## Video del ensayo
 
@@ -66,3 +77,4 @@ Luis Quintero y Leonel Zambrano.
 La documentación, las diapositivas, las evidencias y el video grupal se
 encuentran preparados para la entrega final. Antes de cerrar la actividad,
 deben integrarse en `main` los aportes pendientes de todas las ramas del equipo.
+
