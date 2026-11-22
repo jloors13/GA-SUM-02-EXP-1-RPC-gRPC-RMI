@@ -9,7 +9,8 @@ delimitada a componentes que sí aparecen en documentación técnica pública. E
 caso seleccionado es la plataforma de comprensión de medios (\textit{Media
 Understanding Platform}), que ofrece interfaces gRPC y GraphQL a sus
 aplicaciones consumidoras. Netflix señala además que gRPC se utiliza
-principalmente en la comunicación entre sistemas de \textit{backend}.
+principalmente en la comunicación entre sistemas de \textit{backend}
+\cite{steven-netflix-mup}.
 
 \begin{figure}[ht]
   \centering
@@ -33,7 +34,22 @@ búsqueda e índices de datos de medios. La necesidad que resuelve gRPC no es
 generación de clientes para distintos lenguajes y un mecanismo uniforme para
 llamadas entre servicios. Esto reduce el trabajo de mantener bibliotecas de
 cliente escritas manualmente y facilita la interoperabilidad del ecosistema de
-microservicios.
+microservicios \cite{steven-cncf-netflix}.
+
+\subsection{Secuencia de una RPC unaria}
+La secuencia que Steven explicará durante la exposición tiene cuatro pasos:
+\begin{enumerate}
+  \item el cliente invoca un método del \textit{stub} generado desde el contrato;
+  \item gRPC serializa una petición con Protocol Buffers y la envía por HTTP/2;
+  \item el servidor deserializa la petición, ejecuta la operación y construye la
+  respuesta;
+  \item el cliente recibe una respuesta y un estado, o un error si la llamada no
+  termina correctamente.
+\end{enumerate}
+La documentación oficial define una RPC unaria precisamente como una solicitud
+y una respuesta. La semejanza con una función local no elimina la latencia, los
+errores de red ni la necesidad de establecer un plazo de espera
+\cite{steven-grpc-core}.
 
 La figura evita atribuir a gRPC funciones que pertenecen a otras capas. gRPC no
 demuestra por sí mismo replicación, descubrimiento, balanceo, persistencia ni
@@ -41,11 +57,5 @@ tolerancia a fallos de Netflix. Esos mecanismos solo deben añadirse cuando una
 fuente de Netflix los documente para el servicio analizado.
 
 \paragraph{Fuentes técnicas.}
-Netflix Technology Blog, ``Building a Media Understanding Platform for ML
-Innovations'', 2023:
-\url{https://netflixtechblog.com/building-a-media-understanding-platform-for-ml-innovations-9bef9962dcb7}.
-Cloud Native Computing Foundation, ``How Netflix increased developer
-productivity and defeated the thundering herd with gRPC'':
-\url{https://www.cncf.io/case-studies/netflix/}.
-Documentación oficial de gRPC, ``Core concepts, architecture and lifecycle'':
-\url{https://grpc.io/docs/what-is-grpc/core-concepts/}.
+Los metadatos y enlaces completos están registrados en
+\texttt{referencias/steven.bib}.

@@ -25,6 +25,11 @@ cliente envía exactamente una petición y recibe una respuesta con datos o un
 estado de error. Se parece a una función local, pero sigue siendo una llamada de
 red y por eso puede tener latencia, vencimiento o fallo.
 
+La secuencia se puede recordar con cuatro verbos: \textbf{invocar, serializar,
+ejecutar y responder}. Primero se invoca el stub; luego se serializa la petición;
+el servidor ejecuta la operación; finalmente devuelve la respuesta y el estado.
+Si no llega a tiempo, el cliente no debe asumir que fue una llamada local exitosa.
+
 \textbf{1:45--2:25. Por qué gRPC.}
 La evidencia de Netflix indica dos necesidades: comunicación entre servicios
 escritos en diferentes lenguajes y evitar bibliotecas cliente mantenidas a
@@ -49,4 +54,8 @@ operativos.
   pero la llamada cruza la red y puede fallar.
   \item \textbf{¿Dónde entra RMI?} Como alternativa Java--Java para comparar;
   no hay evidencia presentada aquí de que Netflix use Java RMI.
+  \item \textbf{¿Protocol Buffers y gRPC son lo mismo?} No. Protocol Buffers
+  define y serializa mensajes; gRPC organiza la llamada remota y sus estados.
+  \item \textbf{¿Por qué el diagrama no muestra regiones o réplicas?} Porque las
+  fuentes utilizadas para este caso no demuestran esa topología física concreta.
 \end{itemize}

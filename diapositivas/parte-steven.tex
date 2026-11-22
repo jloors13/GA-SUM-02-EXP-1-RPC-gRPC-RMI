@@ -20,6 +20,24 @@
   Understanding Platform for ML Innovations''.}
 \end{frame}
 
+\begin{frame}{Secuencia de una RPC unaria}
+  \begin{enumerate}
+    \item El cliente invoca un método del \textbf{stub}.
+    \item gRPC serializa una petición con \textbf{Protocol Buffers}.
+    \item El servidor ejecuta la operación solicitada.
+    \item Regresa una respuesta y un estado, o un error.
+  \end{enumerate}
+  \begin{block}{Regla para recordarla}
+    Invocar $\rightarrow$ serializar $\rightarrow$ ejecutar $\rightarrow$ responder.
+  \end{block}
+  \begin{alertblock}{No es una función local}
+    La llamada cruza la red: puede tener latencia, superar su plazo o fallar.
+  \end{alertblock}
+  \vfill
+  {\tiny Fuente: documentación oficial de gRPC, ``Core concepts, architecture
+  and lifecycle''.}
+\end{frame}
+
 \begin{frame}{Modelo cliente-servidor y RPC unaria}
   \begin{block}{Una invocación remota}
     Cliente / stub $\rightarrow$ una petición protobuf $\rightarrow$ servicio
