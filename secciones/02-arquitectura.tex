@@ -20,12 +20,17 @@ principalmente en la comunicación entre sistemas de \textit{backend}
   \label{fig:arquitectura-steven}
 \end{figure}
 
-La aplicación consumidora actúa como cliente. Para una consulta, invoca un
-método definido en un contrato Protocol Buffers mediante un \textit{stub}; la
+La figura separa dos consumidores para no atribuir gRPC a la aplicación final
+sin evidencia. Un servicio de \textit{backend} consumidor actúa como cliente
+gRPC: invoca un método definido en un contrato Protocol Buffers mediante un
+\textit{stub}; la
 infraestructura gRPC serializa la petición, la transporta por HTTP/2 y la
 entrega al servicio. En el caso de una RPC unaria existe una petición y una
 respuesta. El servicio que atiende la llamada cumple el rol de servidor, aunque
 ese mismo proceso puede comportarse como cliente cuando consulta otro servicio.
+La aplicación o interfaz consumidora aparece por separado y se conecta por la
+ruta GraphQL documentada. Esta distinción es lógica y no afirma que toda
+aplicación de Netflix use exclusivamente GraphQL.
 
 En la plataforma documentada, el \textit{Search Gateway} concentra el
 procesamiento de consultas y respuestas, y coordina el acceso a capacidades de
