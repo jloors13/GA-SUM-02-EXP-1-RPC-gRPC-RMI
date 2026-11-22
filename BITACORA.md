@@ -26,3 +26,11 @@ En esta sección se registrarán las reuniones y sesiones de trabajo realizadas 
 **Resultado:** Quedaron disponibles el apartado 04 y las fuentes individuales en formato BibTeX.
 
 **Pendiente de coordinación grupal:** Integración de las citas en el documento maestro, si todavía no se ha realizado.
+
+### 21-11-2026 — Quintero Rico Luis David — Comparación técnica
+
+**Actividad:** Añadí la comparación entre Netflix y la infraestructura de video de YouTube/Google con los límites de la evidencia revisada.
+
+**Resultado:** Quedó disponible el apartado 07 en LaTeX.
+
+**Pendiente de coordinación grupal:** Integración del apartado en el documento general si aún corresponde.
