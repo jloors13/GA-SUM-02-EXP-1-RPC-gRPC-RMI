@@ -9,7 +9,8 @@
     \begin{column}{0.36\textwidth}
       \begin{itemize}
         \item Caso: Media Understanding Platform
-        \item gRPC: backend a backend
+        \item Cliente gRPC: servicio backend consumidor
+        \item La aplicación final usa la ruta GraphQL mostrada
         \item Search Gateway coordina consultas
         \item Vista lógica, no topología física completa
       \end{itemize}
@@ -22,7 +23,7 @@
 
 \begin{frame}{Modelo cliente-servidor y RPC unaria}
   \begin{block}{Una invocación remota}
-    Cliente / stub $\rightarrow$ una petición protobuf $\rightarrow$ servicio
+    Backend cliente / stub $\rightarrow$ una petición protobuf $\rightarrow$ servicio
     gRPC $\rightarrow$ una respuesta o estado.
   \end{block}
   \begin{itemize}

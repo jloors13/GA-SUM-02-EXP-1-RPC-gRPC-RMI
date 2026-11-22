@@ -9,9 +9,12 @@ vista lógica de un caso que Netflix sí documentó: su plataforma de comprensi�
 de medios. Así evitamos inventar nombres de servicios o conexiones internas.
 
 \textbf{0:20--1:05. Componentes.}
-A la izquierda están las aplicaciones consumidoras. En el límite de la
-plataforma existen dos interfaces documentadas: GraphQL para integraciones de
-interfaz y gRPC, usado principalmente para comunicación de backend a backend.
+A la izquierda separo dos consumidores. La aplicación o interfaz consumidora
+entra por la ruta GraphQL documentada. El servicio backend consumidor es el
+cliente gRPC: posee el stub y realiza la RPC unaria. Esta separación evita
+afirmar, sin evidencia, que la aplicación final llama directamente a gRPC.
+En el límite de la plataforma existen dos interfaces documentadas: GraphQL para
+integraciones de interfaz y gRPC, usado principalmente de backend a backend.
 La ruta que nos interesa llega al Search Gateway. Este módulo coordina el
 procesamiento de la consulta y de la respuesta y se conecta con capacidades de
 búsqueda e índices de datos de medios. Las cajas representan responsabilidades
