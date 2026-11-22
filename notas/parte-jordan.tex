@@ -36,7 +36,7 @@ Este estudio sirve como referencia para comprender las diferencias entre REST, G
 
 \section{Transparencias de distribución en Netflix}
 
-Netflix necesita que sus diferentes servicios puedan comunicarse entre sí, aunque se ejecuten en distintas máquinas y tengan varias instancias disponibles. Para resolver estos problemas, la empresa desarrolló mecanismos de descubrimiento de servicios, balanceo de carga y comunicación entre procesos.
+Netflix necesita que sus diferentes servicios puedan comunicarse entre sí, aunque se ejecuten en distintas máquinas y tengan varias instancias disponibles. Para facilitar esta comunicación, la empresa desarrolló mecanismos de descubrimiento de servicios, balanceo de carga y comunicación entre procesos.
 
 En el artículo publicado por Vroom et al. (2023), Netflix explica cómo evolucionó su infraestructura de comunicación interna, desde el uso de Eureka y Ribbon hasta la incorporación de una arquitectura basada en Envoy.
 
@@ -44,10 +44,11 @@ En el artículo publicado por Vroom et al. (2023), Netflix explica cómo evoluci
 
 En la arquitectura descrita por Vroom et al. (2023), Netflix utilizó Eureka para facilitar el descubrimiento de servicios. Cada servicio podía anunciar un nombre virtual (VIP) y un puerto. Para la comunicación segura también podía utilizar un nombre SVIP.
 
-Cuando un componente necesitaba comunicarse con otro, utilizaba el nombre virtual del servicio. El cliente de Eureka se encargaba de traducir ese nombre en las direcciones IP y los puertos de las instancias registradas.
+Cuando un componente necesitaba comunicarse con otro, utilizaba el nombre virtual del servicio. El cliente de Eureka consultaba el registro para obtener las direcciones IP y los puertos de las instancias disponibles.
 
 De esta manera, el componente que realiza la solicitud no necesita conocer directamente la ubicación física de cada instancia. Esto se relaciona con la transparencia de ubicación, porque permite acceder a un servicio mediante un nombre virtual en lugar de utilizar directamente la dirección de una máquina.
 
+Una limitación de este mecanismo es que la información del registro puede quedar desactualizada cuando las instancias cambian o dejan de funcionar. Por eso, aunque Eureka facilita su localización, es necesario considerar que los datos registrados no siempre reflejan inmediatamente el estado real de cada instancia.
 
 \subsection{Transparencia de replicación}
 
@@ -55,18 +56,19 @@ Netflix también utilizó Ribbon, conocido internamente como NIWS, para gestiona
 
 Según Vroom et al. (2023), Ribbon proporcionaba balanceo de carga del lado del cliente y otras funciones para mejorar la tolerancia a fallos.
 
-Esto permite distribuir las solicitudes entre diferentes instancias de un mismo servicio. Se relaciona con la transparencia de replicación porque el cliente puede utilizar el servicio sin tener que seleccionar manualmente cada instancia disponible.
+Mientras Eureka facilita el descubrimiento de las instancias, Ribbon utiliza la información disponible para seleccionar a cuál de ellas enviar cada solicitud. Esto permite distribuir las peticiones entre diferentes instancias de un mismo servicio sin que el consumidor tenga que elegir manualmente cada máquina.
 
+Sin embargo, el balanceo de carga no garantiza que todas las solicitudes se procesen correctamente. Si una instancia deja de funcionar o la información utilizada para seleccionarla no está actualizada, una petición podría dirigirse a un destino que ya no se encuentra disponible.
 
 \subsection{Transparencia de acceso}
 
-La transparencia de acceso busca facilitar la comunicación entre los componentes sin que cada aplicación tenga que gestionar directamente todos los detalles de la conexión.
+La transparencia de acceso busca facilitar el uso de los servicios sin que las aplicaciones tengan que gestionar directamente todos los detalles de la comunicación.
 
-En la arquitectura descrita por Vroom et al. (2023), Netflix incorporó Envoy como proxy local para centralizar funciones de comunicación entre servicios.
+En la arquitectura descrita por Vroom et al. (2023), Netflix incorporó Envoy como proxy local para centralizar diferentes funciones de comunicación entre servicios.
 
-De esta manera, las aplicaciones pueden comunicarse a través del proxy, que se encarga de gestionar el descubrimiento del servicio y dirigir las solicitudes hacia las instancias disponibles.
+De esta manera, las aplicaciones pueden comunicarse a través del proxy, que participa en el descubrimiento de los destinos y dirige las solicitudes hacia las instancias correspondientes. Esto permite separar parte de la lógica de comunicación de las aplicaciones y facilita la administración de las conexiones.
 
-Esto simplifica el trabajo de las aplicaciones, aunque la comunicación sigue dependiendo de la red y puede presentar retrasos o fallos.
+Sin embargo, el uso de un proxy no convierte la comunicación remota en una comunicación local. Las solicitudes siguen dependiendo de la red y pueden presentar retrasos, interrupciones o errores.
 
 \parencite{vroom2023mesh}
 
@@ -92,4 +94,6 @@ Como conclusión, el caso de Netflix nos permite comprender que la transparencia
 
 Para nuestro PFC, podemos aplicar estas ideas mediante contratos claros entre servicios, mecanismos de comunicación bien definidos y una gestión adecuada de los errores.
 
-El artículo también advierte que la transición hacia microservicios puede aumentar el tráfico de red, la latencia y la complejidad de coordinación. Por eso, antes de adoptar esta arquitectura, es importante evaluar si sus beneficios justifican los costos adicionales que puede generar \parencite{henriquez2025netflix}.
+En nuestro caso, podemos comprobar el funcionamiento de la comunicación entre el servicio consumidor y el proveedor de eventos, midiendo el tiempo que tarda cada solicitud y registrando cuántas respuestas se reciben correctamente y cuántas terminan en error. También podemos establecer un tiempo máximo de espera para evitar que una solicitud quede esperando indefinidamente.
+
+La transición de una arquitectura monolítica a una basada en microservicios también implica desafíos de diseño, separación de componentes y coordinación. Por eso, antes de adoptar esta arquitectura, es importante evaluar si sus beneficios justifican la complejidad adicional que puede generar \parencite{abgaz2023decomposition}.
