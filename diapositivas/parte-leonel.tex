@@ -1,0 +1,47 @@
+% Cargar este archivo una vez. Invocar cada bloque en su turno del programa.
+\newcommand{\LeonelComunicacion}{
+\begin{frame}{Una consulta puede devolver una página parcial}
+\texttt{GetItems} solicita registros a la capa de datos de Netflix.
+\begin{enumerate}
+\item El servidor controla el tiempo que lleva la consulta.
+\item Si peligra el objetivo de latencia, devuelve los datos reunidos y un token.
+\item El cliente puede usar el token para pedir la página siguiente si queda tiempo.
+\end{enumerate}
+{\footnotesize Capa clave-valor de Netflix y plazos de gRPC \cite{leonel-kv,fallos-grpc}.}
+\end{frame}}
+
+\newcommand{\LeonelFallos}{
+\begin{frame}{PlayAPI protegió las peticiones del usuario}
+Después de una caída, Android multiplicó por \textbf{12} sus solicitudes de precarga por segundo.
+\medskip
+
+\begin{tabular}{@{}lr@{}}
+\textbf{Tipo de petición} & \textbf{Disponibilidad}\\[3pt]
+Precarga automática & mínimo del 20\,\%\\
+Iniciada por el usuario & superior al 99,4\,\%\\
+\end{tabular}
+\medskip
+
+El servicio descartó primero las precargas \cite{fallos-netflix}.
+\end{frame}
+
+\begin{frame}{Paul vs.\ Tyson: pausas durante la transmisión}
+15 de noviembre de 2024 \hfill Más de 60 millones de hogares \cite{fallos-temple}
+\medskip
+\begin{description}
+\item[Impacto] Miles de espectadores reportaron pausas.
+\item[Indicio] Las pruebas apuntaron a congestión en los servidores de entrega durante el pico de demanda.
+\item[Mitigación] Muchas pruebas recuperaron el video al reconectar con una tasa de bits menor.
+\end{description}
+{\footnotesize Diagnóstico externo de ThousandEyes \cite{fallos-thousandeyes}.}
+\end{frame}}
+
+\newcommand{\LeonelCierre}{
+\begin{frame}{¿Qué acción protegeríamos en el PFC?}
+\begin{enumerate}
+\item Elegir una acción esencial y una tarea secundaria.
+\item Aumentar la carga y posponer parte del trabajo secundario.
+\item Comparar qué porcentaje de cada tipo de petición termina a tiempo.
+\end{enumerate}
+\end{frame}}
+
