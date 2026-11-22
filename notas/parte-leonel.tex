@@ -1,0 +1,16 @@
+% Incluir en las notas del equipo. Las citas respaldan el guion y no se leen.
+\subsection*{Leonel Zambrano Triviño}
+\textbf{Comunicación.} ¿Qué pasa si un servicio pide datos y reunirlos todos tarda demasiado? En Netflix hay una consulta llamada \texttt{GetItems}. El servidor puede devolver lo que ya encontró y una marca para pedir la siguiente página. Así, el cliente recibe datos a tiempo. Si ese cliente está atendiendo otra llamada con un plazo de gRPC, puede dejar de pedir páginas cuando se le acaba el tiempo \cite{leonel-kv,fallos-grpc}.
+
+\smallskip
+\textbf{Tolerancia a fallos.} Una llamada lenta y un servicio saturado se pueden parecer desde el celular. Para el cliente, el \emph{deadline} marca hasta cuándo esperar una respuesta. Para el servicio, una señal de saturación es el uso de CPU. Si sube demasiado, Netflix puede rechazar trabajo de baja prioridad para seguir atendiendo a quien acaba de pulsar reproducir \cite{fallos-grpc,fallos-netflix}.
+
+Eso ocurrió en PlayAPI. Después de una caída, los equipos Android enviaron doce veces más solicitudes de precarga por segundo que antes. La precarga prepara contenido por adelantado. Su disponibilidad llegó a bajar al 20\,\%. En cambio, las solicitudes iniciadas por los usuarios mantuvieron una disponibilidad superior al 99,4\,\%. Ahí se ve qué protegió la decisión de dar prioridad \cite{fallos-netflix}.
+
+La pelea entre Jake Paul y Mike Tyson muestra otro tipo de fallo. El 15 de noviembre de 2024, más de 60 millones de hogares siguieron la transmisión y miles reportaron pausas. ThousandEyes encontró errores durante el pico de demanda. Sus mediciones apuntan a congestión en los servidores que entregaban el video y no mostraron un problema general de los proveedores de internet. Una posible explicación es que miles de espectadores necesitaban el mismo segmento apenas se producía. La causa interna exacta queda abierta. En muchas pruebas, el video volvió al reconectar con una tasa de bits menor. El espectador recuperó la transmisión, aunque perdió calidad \cite{fallos-temple,fallos-thousandeyes}.
+
+\smallskip
+\textbf{Conclusión.} Para nuestro proyecto propongo que identifiquemos una acción que el usuario necesita completar y una tarea secundaria que pueda esperar. En una prueba de sobrecarga, mediríamos por separado cuántas peticiones de cada tipo terminan a tiempo. Si al posponer la tarea secundaria mejoran las respuestas de la acción principal, tendríamos evidencia para adoptar esa prioridad.
+
+
+
