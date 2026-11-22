@@ -67,9 +67,14 @@ Los PDF incluidos fueron regenerados y revisados el 21 de noviembre de 2026.
 
 ## Video del ensayo
 
-**Enlace:** Pendiente de incorporar después del ensayo real de los cuatro integrantes.
+**Video grupal de la exposición:** [Ver en YouTube](https://youtu.be/D4-JTjymwps)
+
+El video corresponde a la exposición conjunta de Jordan Loor, Steven Pozo,
+Luis Quintero y Leonel Zambrano.
 
 ## Estado del proyecto
 
-Presentación, notas, diagrama, referencias y documento SGA integrados. Pendiente:
-incorporar el enlace del ensayo real y actualizar la bitácora con la reunión del equipo.
+La documentación, las diapositivas, las evidencias y el video grupal se
+encuentran preparados para la entrega final. Antes de cerrar la actividad,
+deben integrarse en `main` los aportes pendientes de todas las ramas del equipo.
+
