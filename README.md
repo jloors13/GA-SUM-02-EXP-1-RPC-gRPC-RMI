@@ -56,8 +56,13 @@ Las instrucciones específicas, los archivos principales y las dependencias se d
 
 ## Video del ensayo
 
-**Enlace:** Pendiente de grabación y publicación.
+**Video grupal de la exposición:** [Ver en YouTube](https://youtu.be/D4-JTjymwps)
+
+El video corresponde a la exposición conjunta de Jordan Loor, Steven Pozo,
+Luis Quintero y Leonel Zambrano.
 
 ## Estado del proyecto
 
-En organización inicial del repositorio.
+La documentación, las diapositivas, las evidencias y el video grupal se
+encuentran preparados para la entrega final. Antes de cerrar la actividad,
+deben integrarse en `main` los aportes pendientes de todas las ramas del equipo.
