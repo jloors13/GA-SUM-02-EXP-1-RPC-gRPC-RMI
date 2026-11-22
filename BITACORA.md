@@ -50,3 +50,11 @@ En esta sección se registrarán las reuniones y sesiones de trabajo realizadas 
 **Resultado:** Quedaron disponibles las notas LaTeX y un repaso de posibles preguntas.
 
 **Pendiente de coordinación grupal:** Incorporación de las notas en el documento maestro y participación en el ensayo.
+
+### 21-11-2026 — Quintero Rico Luis David — Evidencia y cierre de la aportación individual
+
+**Actividad:** Incorporé una vista previa de mis dos diapositivas y el inventario de archivos individuales.
+
+**Resultado:** Quedó registrada la evidencia visual junto al historial de commits y la bitácora.
+
+**Pendiente de coordinación grupal:** Revisión y aprobación del Pull Request; ensayo y video grupal, si siguen pendientes.
