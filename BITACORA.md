@@ -34,3 +34,11 @@ En esta sección se registrarán las reuniones y sesiones de trabajo realizadas 
 **Resultado:** Quedó disponible el apartado 07 en LaTeX.
 
 **Pendiente de coordinación grupal:** Integración del apartado en el documento general si aún corresponde.
+
+### 21-11-2026 — Quintero Rico Luis David — Diapositivas de exposición
+
+**Actividad:** Organicé dos diapositivas en Beamer y agregué su archivo fuente y PDF individual.
+
+**Resultado:** Quedaron disponibles diapositivas editables y una versión PDF para revisión.
+
+**Pendiente de coordinación grupal:** Incorporación de las diapositivas en el archivo maestro de la presentación.
