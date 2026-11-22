@@ -42,3 +42,11 @@ En esta sección se registrarán las reuniones y sesiones de trabajo realizadas 
 **Resultado:** Quedaron disponibles diapositivas editables y una versión PDF para revisión.
 
 **Pendiente de coordinación grupal:** Incorporación de las diapositivas en el archivo maestro de la presentación.
+
+### 21-11-2026 — Quintero Rico Luis David — Guion y preparación de preguntas
+
+**Actividad:** Añadí el guion de aproximadamente tres minutos y preguntas técnicas para preparar la exposición.
+
+**Resultado:** Quedaron disponibles las notas LaTeX y un repaso de posibles preguntas.
+
+**Pendiente de coordinación grupal:** Incorporación de las notas en el documento maestro y participación en el ensayo.
