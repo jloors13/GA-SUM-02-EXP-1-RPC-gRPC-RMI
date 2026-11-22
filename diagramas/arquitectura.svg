@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="850" viewBox="0 0 1400 850">
+  <defs>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#4f8a4c"/></marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#a64d79"/></marker>
+    <marker id="arrowOrange" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#c7762b"/></marker>
+    <style>.t{font-family:Arial,sans-serif;fill:#17324d}.box{stroke-width:3}.h{font-size:24px;font-weight:700}.b{font-size:19px;font-weight:700}.s{font-size:16px}.l{font-size:15px}.edge{fill:none;stroke-width:4}</style>
+  </defs>
+  <rect width="1400" height="850" fill="#fff"/>
+  <text x="700" y="55" text-anchor="middle" class="t h">Netflix Media Understanding Platform - vista lógica documentada</text>
+  <rect x="390" y="105" width="900" height="545" rx="20" fill="#fbfdff" stroke="#6c8ead" stroke-width="3" stroke-dasharray="12 8"/>
+  <text x="420" y="140" class="t b" fill="#46637f">Límite de la plataforma documentada</text>
+  <rect x="55" y="305" width="250" height="110" rx="18" fill="#e8f1fb" stroke="#3274a1" class="box"/>
+  <text x="180" y="350" text-anchor="middle" class="t b">Aplicaciones</text><text x="180" y="380" text-anchor="middle" class="t s">consumidoras (cliente)</text>
+  <rect x="455" y="205" width="275" height="105" rx="18" fill="#d9ead3" stroke="#4f8a4c" class="box"/>
+  <text x="592" y="247" text-anchor="middle" class="t b">Interfaz gRPC</text><text x="592" y="278" text-anchor="middle" class="t s">contrato Protocol Buffers</text>
+  <rect x="455" y="455" width="275" height="105" rx="18" fill="#f4e3f1" stroke="#a64d79" class="box"/>
+  <text x="592" y="497" text-anchor="middle" class="t b">Interfaz GraphQL</text><text x="592" y="528" text-anchor="middle" class="t s">ruta alternativa documentada</text>
+  <rect x="880" y="305" width="270" height="110" rx="18" fill="#fff2cc" stroke="#c59b23" class="box"/>
+  <text x="1015" y="348" text-anchor="middle" class="t b">Search Gateway</text><text x="1015" y="380" text-anchor="middle" class="t s">procesa consulta y respuesta</text>
+  <ellipse cx="1015" cy="515" rx="125" ry="28" fill="#fce5cd" stroke="#c7762b" class="box"/>
+  <rect x="890" y="515" width="250" height="90" fill="#fce5cd" stroke="#c7762b" stroke-width="3"/>
+  <ellipse cx="1015" cy="605" rx="125" ry="28" fill="#fce5cd" stroke="#c7762b" class="box"/>
+  <text x="1015" y="553" text-anchor="middle" class="t b">Búsqueda e índices</text><text x="1015" y="581" text-anchor="middle" class="t s">de datos de medios</text>
+  <path d="M305 340 H380 V258 H455" class="edge" stroke="#4f8a4c" marker-end="url(#arrowGreen)"/>
+  <rect x="280" y="190" width="190" height="74" rx="8" fill="#fff" stroke="#cbd5df"/><text x="375" y="218" text-anchor="middle" class="t l">RPC unaria:</text><text x="375" y="241" text-anchor="middle" class="t l">1 petición / 1 respuesta</text>
+  <text x="375" y="286" text-anchor="middle" class="t l">HTTP/2 + protobuf</text>
+  <path d="M730 258 H805 V340 H880" class="edge" stroke="#4f8a4c" marker-end="url(#arrowGreen)"/><text x="805" y="240" text-anchor="middle" class="t l">consulta tipada</text>
+  <path d="M305 390 H380 V507 H455" class="edge" stroke="#a64d79" marker-end="url(#arrowPurple)"/><text x="365" y="470" text-anchor="middle" class="t l">ruta UI / backend</text>
+  <path d="M1015 415 V480" class="edge" stroke="#c7762b" marker-end="url(#arrowOrange)"/><text x="1130" y="455" text-anchor="middle" class="t l">coordina búsqueda</text>
+  <rect x="100" y="705" width="1200" height="95" rx="15" fill="#f5f5f5" stroke="#808080" stroke-width="2"/>
+  <text x="130" y="742" class="t s">Leyenda: verde = gRPC documentado | morado = interfaz alternativa | naranja = acceso lógico a búsqueda/datos</text>
+  <text x="130" y="775" class="t s">No representa cantidades de instancias, regiones, replicación ni balanceo.</text>
+</svg>
