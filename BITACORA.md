@@ -1,20 +1,27 @@
-BITÁCORA DE TRABAJO DEL EQUIPO
+﻿# BITÁCORA DE TRABAJO DEL EQUIPO
 
-Actividad: GA-SUM-02 / EXP-1
-Tema: Análisis de RPC, gRPC y RMI
-Asignatura: Aplicaciones Distribuidas
-Universidad: Universidad Técnica Estatal de Quevedo (UTEQ)
+**Actividad:** GA-SUM-02 / EXP-1
+**Tema:** Análisis de RPC, gRPC y RMI
+**Asignatura:** Aplicaciones Distribuidas
+**Universidad:** Universidad Técnica Estatal de Quevedo (UTEQ)
 
-Integrantes
+## Integrantes
 
-LOOR SUAREZ JORDAN JOSUE
+- LOOR SUAREZ JORDAN JOSUE
+- POZO CASTILLO STEVEN FERNANDO
+- QUINTERO RICO LUIS DAVID
+- ZAMBRANO TRIVIÑO LEONEL LEONIDAS
 
-POZO CASTILLO STEVEN FERNANDO
+## Registro de sesiones de trabajo
 
-QUINTERO RICO LUIS DAVID
+### 19 de noviembre de 2026 — Jordan Loor
 
-ZAMBRANO TRIVIÑO LEONEL LEONIDAS
+Se inició la elaboración del glosario técnico sobre RPC, gRPC y RMI. Se incorporaron conceptos principales y una primera comparación entre las tecnologías.
 
-Registro de sesiones de trabajo
+### 20 de noviembre de 2026 — Jordan Loor
 
-En esta sección se registrarán las reuniones y sesiones de trabajo realizadas por el equipo, indicando las actividades desarrolladas, los participantes y los problemas encontrados.
+Se investigó la comunicación entre microservicios y el funcionamiento de gRPC. Se revisaron fuentes bibliográficas y se incorporaron capturas de los artículos consultados como evidencias.
+
+### 20 y 21 de noviembre de 2026 — Jordan Loor
+
+Se continuó desarrollando la documentación individual sobre Netflix, incluyendo la presentación del sistema, las transparencias de distribución y las notas para la exposición. También se trabajó en las diapositivas y en la organización de las referencias bibliográficas.

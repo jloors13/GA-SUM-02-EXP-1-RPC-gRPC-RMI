@@ -1,0 +1,126 @@
+
+\section{Presentación de Netflix}
+
+\begin{frame}{Netflix: plataforma de entretenimiento global}
+    \begin{itemize}
+        \item Plataforma de series, películas, videojuegos y programación en directo.
+        \item Servicio disponible internacionalmente.
+        \item Operaciones de streaming organizadas en cuatro regiones.
+    \end{itemize}
+
+    \vspace{0.3cm}
+
+    \begin{block}{Resultados de 2025}
+        \centering
+        {\Large 45.183 millones USD}
+
+        Ingresos anuales
+
+        \vspace{0.15cm}
+        \textbf{16\%} de crecimiento respecto a 2024.
+    \end{block}
+
+    \parencite{netflix2025annual}
+\end{frame}
+
+
+\section{Transparencias de distribución}
+
+\begin{frame}{Transparencia de ubicación y replicación}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \textbf{Ubicación (Eureka)}
+
+        \begin{itemize}
+            \item Nombres virtuales (VIP).
+            \item Descubrimiento de servicios.
+            \item Localización de instancias.
+        \end{itemize}
+
+        \column{0.48\textwidth}
+        \textbf{Replicación (Ribbon)}
+
+        \begin{itemize}
+            \item Varias instancias.
+            \item Balanceo del lado del cliente.
+            \item Distribución de solicitudes.
+        \end{itemize}
+    \end{columns}
+
+    \vspace{0.3cm}
+    \centering
+    \textit{El consumidor no necesita seleccionar manualmente cada máquina.}
+
+    \parencite{vroom2023mesh}
+\end{frame}
+
+
+\begin{frame}{Comparación de comunicación entre microservicios}
+
+    \begin{itemize}
+        \item Estudio de Niswar et al. (2024).
+        \item Comparación de REST, GraphQL y gRPC.
+        \item Caso de estudio: sistema SISTER.
+    \end{itemize}
+
+    \vspace{0.3cm}
+
+    \begin{block}{Resultados con 100 solicitudes}
+        \begin{itemize}
+            \item Datos planos: gRPC obtuvo el menor tiempo
+            de respuesta (233,84 ms).
+            \item Datos anidados: REST obtuvo el menor
+            tiempo (5.201,39 ms).
+        \end{itemize}
+    \end{block}
+
+    \centering
+    \textit{La mejor alternativa depende del tipo de consulta.}
+
+    \parencite{niswar2024grpc}
+
+\end{frame}
+
+
+\begin{frame}{Transparencia de acceso y limitaciones}
+
+    \textbf{Acceso (Envoy)}
+
+    \begin{itemize}
+        \item Proxy local para facilitar la comunicación.
+        \item Descubrimiento y conexión entre servicios.
+        \item Menos lógica de comunicación en las aplicaciones.
+    \end{itemize}
+
+    \vspace{0.2cm}
+
+    \textbf{Limitaciones}
+
+    \begin{itemize}
+        \item Eureka puede conservar información desactualizada.
+        \item La primera solicitud puede añadir latencia.
+        \item Los fallos de red siguen siendo posibles.
+    \end{itemize}
+
+    \parencite{vroom2023mesh}
+\end{frame}
+
+
+\section{Lecciones para el PFC}
+
+\begin{frame}{Lecciones para nuestro PFC}
+
+    \begin{itemize}
+        \item Definir contratos claros entre servicios.
+        \item Elegir mecanismos de comunicación adecuados.
+        \item Gestionar errores y considerar la latencia.
+        \item Evaluar los costos de una arquitectura de microservicios.
+    \end{itemize}
+
+    \vspace{0.3cm}
+
+    \centering
+    \textbf{La comunicación entre servicios debe ser clara y confiable.}
+
+    \parencite{abgaz2023decomposition}
+\end{frame}
