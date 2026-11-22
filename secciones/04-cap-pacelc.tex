@@ -1,0 +1,28 @@
+\section{CAP y PACELC: análisis delimitado}
+
+No es correcto clasificar a Netflix completo como AP, CP, EL o EC. CAP se
+aplica a una operación de datos durante una partición, no al protocolo gRPC ni
+a una empresa entera. Para hacer una afirmación comprobable analizamos
+\textbf{EVCache}, la caché distribuida que Netflix usa para datos donde una
+inconsistencia breve es aceptable.
+
+\subsection{Durante una partición: disponibilidad sobre consistencia global}
+Netflix documenta que la replicación de EVCache entre regiones es asíncrona y
+que una demora o caída temporal de la replicación no interrumpe las operaciones
+locales. Por tanto, para esos datos no críticos, ante una partición se conserva
+la disponibilidad local y se acepta que dos regiones vean valores diferentes
+durante un intervalo. Esta decisión se aproxima a AP, limitada a EVCache y a
+los datos descritos por la fuente; no se extrapola a pagos, identidad u otros
+servicios \cite{netflix-evcache}.
+
+\subsection{Sin partición: latencia sobre consistencia inmediata}
+En el lado PACELC, EVCache favorece una lectura local de baja latencia y replica
+en segundo plano. La consecuencia es un intercambio explícito: menor latencia
+a cambio de consistencia eventual entre regiones. Para esta operación concreta
+la decisión se aproxima a EL. Netflix también documenta sistemas distintos,
+como su base de datos de medios, que usan cuórum local y lectura después de escritura; esto demuestra por qué no existe una única etiqueta para toda la
+plataforma \cite{netflix-evcache,netflix-media-db}.
+
+\paragraph{Postura crítica.} gRPC transporta una solicitud y su respuesta, pero
+no determina el nivel de consistencia de los datos. La política depende del
+almacenamiento, la replicación y la semántica de cada operación.
