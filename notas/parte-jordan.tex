@@ -1,20 +1,95 @@
+\section{Presentación del sistema}
+
+Netflix es una empresa de entretenimiento que ofrece series, películas, videojuegos y programación en directo. Sus contenidos están disponibles a través de Internet y pueden reproducirse desde diferentes dispositivos.
+
+Según su informe anual de 2025, Netflix obtuvo ingresos por 45.183 millones de dólares, lo que representó un crecimiento del 16\% respecto a 2024. La empresa obtiene principalmente sus ingresos mediante las membresías de streaming, aunque también recibe ingresos por publicidad y otras actividades.
+
+El informe presenta sus resultados de streaming en cuatro regiones: Estados Unidos y Canadá, Europa, Medio Oriente y África, Latinoamérica y Asia-Pacífico. Esta distribución permite observar el alcance internacional de sus operaciones.
+
+Por la cantidad de contenidos y usuarios que debe atender, Netflix necesita una infraestructura que permita distribuir la reproducción y mantener la comunicación entre sus diferentes componentes. Por eso resulta interesante estudiar cómo organiza su sistema distribuido.
+
+\parencite{netflix2025annual}
+
 
 \section{Investigación sobre la comunicación entre microservicios}
 
-Para comprender por qué gRPC puede ser una alternativa útil en los sistemas distribuidos, se revisó el estudio de Niswar et al. (2024), en el que se compara el rendimiento de tres formas de comunicación: REST, GraphQL y gRPC.
+Para conocer las diferencias entre algunos mecanismos de comunicación utilizados en arquitecturas de microservicios, se tomó como referencia el estudio de Niswar et al. (2024). En este trabajo se compara el rendimiento de tres alternativas: REST, GraphQL y gRPC.
 
-Los investigadores realizaron sus pruebas en SISTER, un sistema de información educativa de Indonesia. Para el experimento desarrollaron tres microservicios utilizando Go, distribuidos en tres contenedores. El sistema incluía servicios de autenticación y consultas de información de docentes, además de utilizar Redis y MySQL para gestionar los datos.
+Los investigadores utilizaron como caso de estudio SISTER, un sistema de información educativa de Indonesia. Para realizar las pruebas desarrollaron tres servicios en Go, distribuidos en tres contenedores: uno de autenticación, otro para consultar perfiles de docentes y un tercero para consultar sus perfiles junto con su formación académica. Cada servicio contaba con una base de datos Redis y otra MySQL.
 
-El objetivo fue comparar el tiempo de respuesta y el uso del procesador de cada alternativa. Para ello, realizaron pruebas con diferentes cantidades de solicitudes y dos tipos de consultas: datos planos y datos anidados.
+El objetivo fue comparar el tiempo de respuesta y el uso del procesador de cada alternativa. Los autores realizaron dos tipos de pruebas: consultas de datos planos y consultas de datos anidados. También evaluaron diferentes cantidades de solicitudes, desde 100 hasta 500, utilizando Apache JMeter.
 
-Uno de los resultados más importantes fue que gRPC obtuvo menores tiempos de respuesta en varias de las pruebas. Por ejemplo, al consultar datos planos con 100 solicitudes, registró un promedio de 233,84 milisegundos, mientras que REST alcanzó 1113,33 milisegundos y GraphQL 3852,07 milisegundos.
+En las pruebas de solicitudes concurrentes para consultar datos planos, gRPC obtuvo el menor tiempo de respuesta. Con 100 solicitudes, registró un promedio de 233,84 milisegundos, frente a 1.113,33 milisegundos de REST y 3.852,07 milisegundos de GraphQL.
 
-Sin embargo, los resultados también muestran que gRPC no fue superior en todos los aspectos. REST presentó un menor uso del procesador en las mediciones generales. Por esta razón, la elección de un protocolo debe considerar las necesidades y características del sistema.
+Sin embargo, el resultado cambió al consultar datos anidados. Con 100 solicitudes, REST registró un promedio de 5.201,39 milisegundos, mientras que gRPC alcanzó 5.667,33 milisegundos y GraphQL 8.510,84 milisegundos. En este escenario, REST obtuvo el menor tiempo de respuesta.
 
-Los autores relacionan el rendimiento de gRPC con el uso de HTTP/2, que permite enviar varias solicitudes por una misma conexión mediante la multiplexación. Esto facilita la comunicación cuando diferentes servicios necesitan intercambiar información al mismo tiempo.
+En cuanto al uso del procesador, los autores también realizaron pruebas de cinco minutos con solicitudes consecutivas. Para los datos planos con 100 solicitudes, REST registró un promedio del 3,87\%, gRPC del 4,09\% y GraphQL del 17,63\%. En las consultas de datos anidados, los valores fueron del 10,51\% para REST, 20,84\% para gRPC y 37,53\% para GraphQL.
 
-Este estudio permite comprender algunas de las ventajas de gRPC en una arquitectura de microservicios. Aunque sus resultados corresponden al sistema SISTER y no a Netflix, sirven como referencia para analizar las características de este mecanismo de comunicación.
+Estos resultados permiten observar que no existe una alternativa que sea necesariamente la mejor en todas las condiciones. gRPC obtuvo buenos resultados en varias mediciones, pero REST presentó un menor tiempo de respuesta en la prueba de datos anidados con 100 solicitudes.
 
-\subsection{Referencia consultada}
+Los autores relacionan el rendimiento de gRPC con el uso de HTTP/2, que permite aprovechar características como la multiplexación y la transmisión bidireccional. También destacan la serialización eficiente que ofrece Protocol Buffers.
 
-Niswar, M., Safruddin, R. A., Bustamin, A., y Aswad, I. (2024). Performance evaluation of microservices communication with REST, GraphQL, and gRPC. \textit{International Journal of Electronics and Telecommunications}, 70(2), 429--436. https://doi.org/10.24425/ijet.2024.149562
+Este estudio sirve como referencia para comprender las diferencias entre REST, GraphQL y gRPC. Sin embargo, es importante aclarar que las pruebas se realizaron sobre SISTER y no sobre Netflix. Por tanto, sus resultados no deben interpretarse como mediciones del rendimiento de la infraestructura de Netflix.
+
+\parencite{niswar2024grpc}
+
+
+\section{Transparencias de distribución en Netflix}
+
+Netflix necesita que sus diferentes servicios puedan comunicarse entre sí, aunque se ejecuten en distintas máquinas y tengan varias instancias disponibles. Para resolver estos problemas, la empresa desarrolló mecanismos de descubrimiento de servicios, balanceo de carga y comunicación entre procesos.
+
+En el artículo publicado por Vroom et al. (2023), Netflix explica cómo evolucionó su infraestructura de comunicación interna, desde el uso de Eureka y Ribbon hasta la incorporación de una arquitectura basada en Envoy.
+
+\subsection{Transparencia de ubicación}
+
+En la arquitectura descrita por Vroom et al. (2023), Netflix utilizó Eureka para facilitar el descubrimiento de servicios. Cada servicio podía anunciar un nombre virtual (VIP) y un puerto. Para la comunicación segura también podía utilizar un nombre SVIP.
+
+Cuando un componente necesitaba comunicarse con otro, utilizaba el nombre virtual del servicio. El cliente de Eureka se encargaba de traducir ese nombre en las direcciones IP y los puertos de las instancias registradas.
+
+De esta manera, el componente que realiza la solicitud no necesita conocer directamente la ubicación física de cada instancia. Esto se relaciona con la transparencia de ubicación, porque permite acceder a un servicio mediante un nombre virtual en lugar de utilizar directamente la dirección de una máquina.
+
+
+\subsection{Transparencia de replicación}
+
+Netflix también utilizó Ribbon, conocido internamente como NIWS, para gestionar la comunicación entre servicios y distribuir las solicitudes entre las instancias disponibles.
+
+Según Vroom et al. (2023), Ribbon proporcionaba balanceo de carga del lado del cliente y otras funciones para mejorar la tolerancia a fallos.
+
+Esto permite distribuir las solicitudes entre diferentes instancias de un mismo servicio. Se relaciona con la transparencia de replicación porque el cliente puede utilizar el servicio sin tener que seleccionar manualmente cada instancia disponible.
+
+
+\subsection{Transparencia de acceso}
+
+La transparencia de acceso busca facilitar la comunicación entre los componentes sin que cada aplicación tenga que gestionar directamente todos los detalles de la conexión.
+
+En la arquitectura descrita por Vroom et al. (2023), Netflix incorporó Envoy como proxy local para centralizar funciones de comunicación entre servicios.
+
+De esta manera, las aplicaciones pueden comunicarse a través del proxy, que se encarga de gestionar el descubrimiento del servicio y dirigir las solicitudes hacia las instancias disponibles.
+
+Esto simplifica el trabajo de las aplicaciones, aunque la comunicación sigue dependiendo de la red y puede presentar retrasos o fallos.
+
+\parencite{vroom2023mesh}
+
+
+\subsection{Limitaciones de la transparencia}
+
+Aunque los mecanismos utilizados por Netflix facilitan la comunicación, no eliminan todos los problemas de los sistemas distribuidos.
+
+Vroom et al. (2023) explican que Eureka funciona como fuente de información sobre las instancias registradas. Si deja de funcionar, los servicios pueden seguir comunicándose con la información almacenada, pero esta puede quedar desactualizada cuando las instancias cambian.
+
+Por otra parte, el descubrimiento de clústeres bajo demanda en Envoy tiene una limitación: cuando se realiza la primera solicitud a un clúster desconocido, la petición debe esperar mientras se obtiene su información. Este proceso añade algunos milisegundos de latencia.
+
+Para los servicios que necesitan respuestas muy rápidas desde la primera solicitud, Netflix plantea definir previamente los clústeres o preparar las conexiones antes de utilizarlas.
+
+Esto demuestra que, aunque la transparencia facilita el trabajo entre servicios, todavía es necesario considerar la disponibilidad, los fallos y los tiempos de respuesta.
+
+\parencite{vroom2023mesh}
+
+
+\section{Lecciones para el PFC y conclusión}
+
+Como conclusión, el caso de Netflix nos permite comprender que la transparencia facilita la comunicación entre los componentes de un sistema distribuido, ya que los servicios pueden localizarse y comunicarse sin conocer todos los detalles de su infraestructura. Sin embargo, esto no elimina problemas como la latencia o los fallos de red.
+
+Para nuestro PFC, podemos aplicar estas ideas mediante contratos claros entre servicios, mecanismos de comunicación bien definidos y una gestión adecuada de los errores.
+
+El artículo también advierte que la transición hacia microservicios puede aumentar el tráfico de red, la latencia y la complejidad de coordinación. Por eso, antes de adoptar esta arquitectura, es importante evaluar si sus beneficios justifican los costos adicionales que puede generar \parencite{henriquez2025netflix}.

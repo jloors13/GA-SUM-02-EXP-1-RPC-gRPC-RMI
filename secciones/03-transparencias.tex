@@ -1,0 +1,36 @@
+
+\section{Transparencias de distribución en Netflix}
+
+Netflix utiliza mecanismos que permiten que sus servicios se comuniquen sin tener que conocer directamente todos los detalles de las máquinas donde se ejecutan. En su artículo de 2023, Vroom et al. describen cómo la empresa ha utilizado Eureka, Ribbon y, más recientemente, Envoy para organizar la comunicación entre sus servicios.
+
+\subsection{Transparencia de ubicación}
+
+Un ejemplo es el uso de Eureka para descubrir servicios. Netflix explica que cada servicio puede anunciarse mediante un nombre virtual (VIP) y un puerto. Cuando otro componente necesita comunicarse con él, utiliza ese nombre y Eureka lo relaciona con las direcciones IP y los puertos de las instancias registradas.
+
+De esta manera, el servicio que realiza la solicitud no necesita conocer de antemano la ubicación física de cada instancia. Esto representa transparencia de ubicación, porque se utiliza un identificador del servicio en lugar de depender directamente de la dirección de cada máquina.
+
+\subsection{Transparencia de replicación}
+
+Netflix también utiliza mecanismos para distribuir las solicitudes entre distintas instancias de un mismo servicio. En la arquitectura descrita por Vroom et al. (2023), Ribbon proporciona la lógica de balanceo de carga del lado del cliente.
+
+Esto permite seleccionar una instancia entre las disponibles y repartir las solicitudes. Así, el consumidor no necesita elegir manualmente a qué máquina enviar cada petición.
+
+\subsection{Transparencia de acceso}
+
+La evolución hacia una arquitectura basada en Envoy también permite observar cómo Netflix busca mantener una forma uniforme de comunicación entre sus servicios.
+
+Los autores explican que la empresa decidió conservar la interfaz existente basada en nombres VIP y SVIP durante la migración hacia el service mesh. Los clientes pueden comunicarse con un proxy local, mientras Envoy se encarga de obtener la información del servicio de destino y gestionar la conexión.
+
+Esto facilita el uso de los servicios sin que cada aplicación tenga que gestionar directamente todos los detalles de descubrimiento y configuración. Sin embargo, no significa que la comunicación remota se convierta en una llamada local ni que desaparezcan sus posibles errores.
+
+\subsection{Limitaciones de la transparencia}
+
+Estos mecanismos facilitan el funcionamiento de Netflix, pero no eliminan todos los problemas de un sistema distribuido.
+
+Vroom et al. (2023) explican que Eureka puede convertirse en un punto único de fallo para obtener información actualizada sobre las instancias. Si deja de funcionar, los servicios pueden continuar comunicándose con los datos almacenados, aunque estos pueden quedar desactualizados cuando las instancias cambian.
+
+También existe un costo asociado al descubrimiento bajo demanda de Envoy. La primera solicitud a un clúster puede tardar algunos milisegundos adicionales mientras se obtiene su información. Netflix reconoce que esto puede ser un inconveniente para los servicios que necesitan tiempos de respuesta muy bajos.
+
+En conclusión, Netflix utiliza mecanismos que ocultan parte de la complejidad de localizar servicios y distribuir solicitudes. Sin embargo, la latencia y los problemas de disponibilidad siguen existiendo, por lo que la transparencia en un sistema distribuido no significa que todos los fallos sean invisibles.
+
+\parencite{vroom2023mesh}
